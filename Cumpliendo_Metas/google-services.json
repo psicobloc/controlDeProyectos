@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "934058171716",
+    "firebase_url": "https://metasalimenticias.firebaseio.com",
+    "project_id": "metasalimenticias",
+    "storage_bucket": "metasalimenticias.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934058171716:android:abd2eb4e9302fbda374b11",
+        "android_client_info": {
+          "package_name": "com.dietas.cumpliendo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "934058171716-4ltfceb63qncountg4kacdmljsa1d62u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA7Y1P6ofq9FLO5FTlnnygurBA53U3GzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "934058171716-4ltfceb63qncountg4kacdmljsa1d62u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
