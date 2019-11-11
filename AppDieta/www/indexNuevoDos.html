@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>DietApp</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.min.css">
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyD_mwMSSpi0zPQMPp6Hblg_puejiQjyUK8",
+        authDomain: "metasalimenticias.firebaseapp.com",
+        databaseURL: "https://metasalimenticias.firebaseio.com",
+        projectId: "metasalimenticias",
+        storageBucket: "metasalimenticias.appspot.com",
+        messagingSenderId: "934058171716",
+        appId: "1:934058171716:web:fae77b934754b8db374b11"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+
+    </script>
+</head>
+
+<script type="text/javascript">
+  function signUp(){
+    const email = document.getElementById("correo").value;
+    const password = document.getElementById("pass").value;
+
+    if(email == "" || password == ""){
+      ons.notification.alert("Error : faltan datos");
+    }
+    else{
+      const auth = firebase.auth();
+
+      const promise = auth.createUserWithEmailAndPassword(email, password);
+      if(promise.error == ""){
+        ons.notification.toast("Usuario registrado con exito", {timeout: 2000});
+      }
+      promise.catch( e => ons.notification.alert("Error : " + e.message));
+    }
+  }
+
+  function revisa(){
+    firebase.auth().onAuthStateChanged(firebaseUser =>{
+        if (firebaseUser) {
+          console.log(firebaseUser);
+          ons.notification.alert("Usuario dentro");
+        }
+        else{
+          console.log('No esta dentro');
+        }
+      });
+  }
+
+  function logIn(){
+    const email = document.getElementById("correo").value;
+    const password = document.getElementById("pass").value;
+    if(email == "" || password == ""){
+      ons.notification.alert("Error : Falta de datos");
+    }
+    else{
+      const auth = firebase.auth();
+
+      const promise = auth.signInWithEmailAndPassword(email, password);
+      promise.catch( e => ons.notification.alert("Error : " + e.message));
+    }
+  }
+</script>
+
+<body>
+    <div class="login-dark" style="background-image: url(&quot;assets/img/foodBackground.jpg&quot;);">
+        <form method="post" style="height: 550px;">
+            <h2 class="sr-only">Login Form</h2>
+            <div class="illustration"><img src="assets/img/logo.png"></div>
+            <div class="form-group"><input class="form-control" type="email" name="correo" placeholder="Email" inputmode="email" required="" minlength="6" input-id="correo"></input></div>
+            <div class="form-group"><input class="form-control" type="password" name="pass" placeholder="Contraseña" required="" minlength="6" input-id="pass"></div>
+            <button  id="push-button" class="btn btn-primary btn-block" type="submit" onclick="signUp()" >Crear cuenta</button>
+            <button id="push-button-F" class="btn btn-primary btn-block" type="button" onclick="logIn()" >Iniciar sesión</button>
+          </form>
+    </div>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
