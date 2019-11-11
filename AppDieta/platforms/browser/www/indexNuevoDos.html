@@ -4,9 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
     <title>DietApp</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.min.css">
@@ -29,6 +26,9 @@
       };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
+
+      <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+
     </script>
 </head>
 
@@ -78,95 +78,17 @@
   }
 </script>
 
-<style type="text/css">
-  .login-dark {
-  height: 1000px;
-  background: #475d62 url(../../assets/img/star-sky.jpg);
-  background-size: cover;
-  position: relative;
-  }
-
-  .login-dark form {
-    max-width: 320px;
-    width: 90%;
-    background-color: #1e2833;
-    padding: 40px;
-    border-radius: 4px;
-    color: #fff;
-    box-shadow: 3px 3px 4px rgba(0,0,0,0.2);
-  }
-
-  .login-dark .illustration {
-    text-align: center;
-    padding: 15px 0 20px;
-    font-size: 100px;
-    color: #2980ef;
-  }
-
-  .login-dark form .form-control {
-    background: none;
-    border: none;
-    border-bottom: 1px solid #434a52;
-    border-radius: 0;
-    box-shadow: none;
-    outline: none;
-    color: inherit;
-  }
-
-  .login-dark form .btn-primary {
-    background: #214a80;
-    border: none;
-    border-radius: 4px;
-    padding: 11px;
-    box-shadow: none;
-    margin-top: 26px;
-    text-shadow: none;
-    outline: none;
-  }
-
-  .login-dark form .btn-primary:hover, .login-dark form .btn-primary:active {
-    background: #214a80;
-    outline: none;
-  }
-
-  .login-dark form .forgot {
-    display: block;
-    text-align: center;
-    font-size: 12px;
-    color: #6f7a85;
-    opacity: 0.9;
-    text-decoration: none;
-  }
-
-  .login-dark form .forgot:hover, .login-dark form .forgot:active {
-    opacity: 1;
-    text-decoration: none;
-  }
-
-  .login-dark form .btn-primary:active {
-    transform: translateY(1px);
-  }
-</style>
-
 <body>
-  <center>
     <div class="login-dark" style="background-image: url(&quot;assets/img/foodBackground.jpg&quot;);">
         <form method="post" style="height: 550px;">
             <h2 class="sr-only">Login Form</h2>
             <div class="illustration"><img src="assets/img/logo.png"></div>
-              <ons-input placeholder="Ingrese el correo" input-id="correo" modifier="underbar" type="email" style="background-color: white; color: black" float></ons-input>
-              <br>
-              <br>
-              <ons-input placeholder="Ingrese la contraseña" input-id="pass" modifier="underbar" type="password" style="background-color: white; color: black" float></ons-input>
-              <br>  
-              <br>
-              <ons-button id="push-button" onclick="signUp()" style="background-color: #FFA101; color: white" >Registrarse</ons-button>
-              <br>
-              <br>
-              <ons-button id="push-button-F" onclick="logIn()" style="background-color: #FFA101; color: white" >Iniciar Seción</ons-button>
-          </form>    
-      </div>
-    </center>
+            <div class="form-group"><input class="form-control" type="email" name="correo" placeholder="Email" inputmode="email" required="" minlength="6" input-id="correo"></input></div>
+            <div class="form-group"><input class="form-control" type="password" name="pass" placeholder="Contraseña" required="" minlength="6" input-id="pass"></div>
+            <button  id="push-button" class="btn btn-primary btn-block" type="submit" onclick="signUp()" >Crear cuenta</button>
+            <button id="push-button-F" class="btn btn-primary btn-block" type="button" onclick="logIn()" >Iniciar sesión</button>
+          </form>
+    </div>
     <script type="text/javascript" src="cordova.js"></script>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
