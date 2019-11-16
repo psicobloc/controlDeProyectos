@@ -1,0 +1,10 @@
+id-> nombre -> manzana
+porcion -> string -> 1 pza
+calorias -> number -> 60 * Kcal
+carbohidratos -> numbeer -> 15 * gramos
+grasa -> number -> 0 * gramos
+grupo -> dtring -> fruta
+proteina -> number -> 0 * gramos
+
+
+
