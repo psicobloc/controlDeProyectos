@@ -317,6 +317,278 @@ async function getVerduras()
    return cadena;
 }
 
+
+async function getDay(calorias) {
+
+
+//calorias
+//fruta                 60
+//cereal                70
+//cerealgrasa           115
+//anialBajo             55
+//animal muy bajo       40
+//grasa mono            70
+//grasa poli            45
+//lecheEntera           150
+//leche desc            95
+//leguminosas           120
+//verdura               25
+
+
+//console.log(fruta1);
+
+var cadena = "\n\nDesayuno:\n";
+var caloriasTotales = 0;
+//console.log(caloriasTotales);
+///+++ desayuno
+//para todos.
+var fruta1 = await getFruta();
+caloriasTotales += 60;
+//console.log(caloriasTotales);
+cadena += fruta1;
+cadena += "\n";
+var veggie1 = await getVerduras();
+caloriasTotales += 25;
+cadena += veggie1;
+cadena += "\n";
+var cereal1 = await getCerealNormal();
+caloriasTotales += 70;
+cadena += cereal1;
+cadena += "\n";
+var grasa1 = await getGrasaMono();
+caloriasTotales += 70;
+cadena += grasa1;
+cadena += "\n";
+
+if (calorias > 1200) {
+  var cereal2 = await getCerealNormal();
+  caloriasTotales += 70;
+  cadena += cereal2;
+  cadena += "\n";
+
+  if (calorias > 1400) {
+    var animal1 = await getAnimalMuyBajaGrasa();
+    caloriasTotales += 40;
+    cadena += animal1;
+    cadena += "\n";
+
+    if (calorias > 1600) {
+      var veggie2 = await getVerduras();
+      caloriasTotales += 25;
+      cadena += veggie2;
+      cadena += "\n";
+
+      if (calorias > 1800) {
+        var fruta2 =  await getFruta();
+        caloriasTotales += 60;
+        cadena += fruta2;
+        cadena += "\n";
+
+
+        if (calorias > 2000) {
+          var animal2 = await getAnimalMuyBajaGrasa();
+          caloriasTotales += 40;
+          cadena += animal2;
+          cadena += "\n";
+
+        }
+      }
+    }
+  }
+}
+
+//console.log(cadena);
+
+cadena += "\n\nColación de medio día\n";
+
+if (calorias > 1200) {
+  var cerealCol1 = await getCerealNormal();
+  caloriasTotales += 70;
+  cadena += cerealCol1;
+  cadena += "\n";
+
+  if (calorias < 1600) {
+    var lecheCol1 = await getLecheDescremada();
+    caloriasTotales += 95;
+  }
+
+  if (calorias > 1400) {
+    var animalCol1 = await getAnimalMuyBajaGrasa();
+    caloriasTotales += 40;
+    cadena += animalCol1;
+    cadena += "\n";
+
+      if (calorias > 1800) {
+        var frutaCol2 = await getFruta();
+        caloriasTotales += 60;
+        cadena += frutaCol2;
+        cadena += "\n";
+
+
+        if (calorias > 2000) {
+          var veggieCol1 = await getVerduras();
+          caloriasTotales += 25;
+          cadena += veggieCol1;
+          cadena += "\n";
+
+          var veggieCol2 = await getVerduras();
+          caloriasTotales += 25;
+          cadena += veggieCol2;
+          cadena += "\n";
+
+        }
+      }
+  }
+}
+
+//console.log(cadena);
+
+cadena += "\n\nComida\n"
+//todos
+  var cerealComida1 = await getCerealNormal();
+  caloriasTotales += 70;
+  cadena += cerealComida1;
+  cadena += "\n";
+
+  var leguminosa1 = await getLeguminosa();
+  caloriasTotales += 120;
+  cadena += leguminosa1;
+  cadena += "\n"
+
+  var veggieComida1 = await getVerduras();
+  caloriasTotales += 25;
+  cadena += veggieComida1;
+  cadena += "\n";
+
+  var veggieComida2 = await getVerduras();
+  caloriasTotales += 25;
+  cadena += veggieComida2;
+  cadena += "\n";
+
+  var frutaComida1 = await getFruta();
+  caloriasTotales += 60;
+  cadena += frutaComida1;
+  cadena += "\n";
+
+  var animalComida1 = await getAnimalMuyBajaGrasa();
+  caloriasTotales += 40;
+  cadena += animalComida1;
+  cadena += "\n";
+
+  var grasaComida1 = await getGrasaPoli();
+  caloriasTotales += 45;
+  cadena += grasaComida1;
+  cadena += "\n";
+
+  var lecheComida1 = await getLecheDescremada();
+  caloriasTotales += 95;
+  cadena += lecheComida1;
+  cadena += "\n";
+
+if (calorias > 1200) {
+    var animalComida2 = await getAnimalMuyBajaGrasa();
+    caloriasTotales += 40;
+    cadena += animalComida2;
+    cadena += "\n";
+
+      if (calorias > 1800) {
+        var cerealComida3 = await getCerealGrasa();
+        caloriasTotales += 115;
+        cadena += cerealComida3;
+        cadena += "\n";
+      }
+}
+
+cadena += "\n\nColación de media tarde\n";
+//todos
+
+var lecheTarde1 = await getLecheDescremada();
+caloriasTotales += 95;
+cadena += lecheTarde1;
+cadena += "\n";
+
+if (calorias < 1400) {
+  if (calorias > 1200) {
+
+    var veggieTarde = await getVerduras();
+    caloriasTotales += 25;
+    cadena += veggieTarde;
+    cadena += "\n";
+  }
+}
+
+if (calorias > 1400) {
+
+  var cerealTarde1 = await getCerealNormal();
+  caloriasTotales += 70;
+  cadena += cerealTarde1;
+  cadena += "\n";
+}
+
+//console.log(cadena);
+
+cadena += "\n\nCena\n"
+//todos
+
+var cerealCena1 = await getCerealNormal();
+caloriasTotales += 70;
+cadena += cerealCena1;
+cadena += "\n";
+
+var veggieCena1 = await getVerduras();
+caloriasTotales += 25;
+cadena += veggieCena1;
+cadena += "\n";
+
+var frutaCena1 =  await getFruta();
+caloriasTotales += 60;
+cadena += frutaCena1;
+cadena += "\n";
+
+if (calorias > 1200) {
+
+  var lecheCena1 = await getLecheDescremada();
+  caloriasTotales += 95;
+  cadena += lecheCena1;
+  cadena += "\n";
+  if (calorias > 1400) {
+
+    var animalCena1 = await getAnimalBajaGrasa();
+    caloriasTotales += 55;
+    cadena += animalCena1;
+    cadena += "\n";
+  }
+}
+
+console.log(`calorias totales hasta ahora: ${caloriasTotales}`);
+console.log(`calorias necesarias: ${calorias}`);
+var diferencia = (calorias - caloriasTotales);
+console.log(`diferencia: ${diferencia}`);
+
+if (diferencia > 0) {
+
+  cadena += "\nAgregar durante cualquier parte del día:\n\n";
+
+  while (diferencia > 115) {
+
+    var leguminosa2 = await getLeguminosa();
+    caloriasTotales += 120;
+    cadena += leguminosa2;
+    cadena += "\n"
+
+    diferencia = (calorias - caloriasTotales);
+
+  }
+  console.log(`nueva diferencia: ${diferencia}`);
+}
+
+
+console.log("\n\ndieta:");
+console.log(cadena);
+
+
+}
+
 async function mainDieta(){
     const peso = document.getElementById("peso").value;
     const altura = document.getElementById("altura").value;
@@ -333,8 +605,7 @@ async function mainDieta(){
     ///ejercicio muy pesado -> 2 o más veces al día -> BMR x 1.9
     ///
     /// para bajar de peso, quitar 500 Kcal por cada 0.5Kg, por semana
-    ///
-    ///
+
 
     if (ejercicio < 4  && ejercicio >= 1) {
       multiplicadorEjercicio = 1.375
@@ -388,46 +659,45 @@ async function mainDieta(){
     var leguminosas = general.doc("leguminosas");                 /// 9
     var verduras = general.doc("verduras");                       /// 60
 
-    // verduras.collection("listaVerduras").get().then((querySnapshot) => {
-    //     querySnapshot.forEach((doc) => {
-    //         console.log(`${doc.id} => ${doc.data().porcion}`);
-    //     });
-    // });
+     //getDay(cantidadCalorias); ///para mantener el peso
+
+     console.log("\n\n\n Dieta para bajar de peso:\n\n");
+     getDay(caloriasBajarPeso);
 
 /// muestra de get Ingredientes.
-    var fruta1 = await getFruta();
-    console.log(fruta1);
-
-    var cereal1 = await getCerealNormal();
-    console.log(cereal1);
-
-    var cerealG = await getCerealGrasa();
-    console.log(cerealG);
-
-    var animalBG = await getAnimalBajaGrasa();
-    console.log(animalBG);
-
-    var animalMBG = await getAnimalMuyBajaGrasa();
-    console.log(animalMBG);
-
-    var grasaMono1 = await getGrasaMono();
-    console.log(grasaMono1);
-
-    var grasaPoli1 = await getGrasaPoli();
-    console.log(grasaPoli1);
-
-    var lecheD = await getLecheDescremada();
-    console.log(lecheD);
-
-    var lecheE = await getLecheEntera();
-    console.log(lecheE);
-
-    var legum = await getLeguminosa();
-    console.log(legum);
-
-    var veggie = await getVerduras();
-    console.log(veggie);
-
+    // var fruta1 = await getFruta();
+    // console.log(fruta1);
+    //
+    // var cereal1 = await getCerealNormal();
+    // console.log(cereal1);
+    //
+    // var cerealG = await getCerealGrasa();
+    // console.log(cerealG);
+    //
+    // var animalBG = await getAnimalBajaGrasa();
+    // console.log(animalBG);
+    //
+    // var animalMBG = await getAnimalMuyBajaGrasa();
+    // console.log(animalMBG);
+    //
+    // var grasaMono1 = await getGrasaMono();
+    // console.log(grasaMono1);
+    //
+    // var grasaPoli1 = await getGrasaPoli();
+    // console.log(grasaPoli1);
+    //
+    // var lecheD = await getLecheDescremada();
+    // console.log(lecheD);
+    //
+    // var lecheE = await getLecheEntera();
+    // console.log(lecheE);
+    //
+    // var legum = await getLeguminosa();
+    // console.log(legum);
+    //
+    // var veggie = await getVerduras();
+    // console.log(veggie);
+    //
 
 
 
