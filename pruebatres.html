@@ -217,26 +217,162 @@ async function getGrasaPoli()
    return cadena;
 }
 
+async function getLecheDescremada()
+{
+  var db = firebase.firestore();
+  var general = db.collection("ingredientes");
+  var lecheDesc = general.doc("lecheDescremada");
+  var contador = 1;
+  const numLeche = getRandomInt(1,6);
+  var cadena;
+
+  await lecheDesc.collection("listaLeche").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+
+        if (contador == numLeche) {
+          contador++;
+          cadena = `Derivado de leche: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+        }
+        contador++;
+
+      });
+  });
+
+   return cadena;
+}
+
+async function getLecheEntera()
+{
+  var db = firebase.firestore();
+  var general = db.collection("ingredientes");
+  var lecheEnt = general.doc("lecheEntera");
+  var contador = 1;
+  const numLeche = getRandomInt(1,5);
+  var cadena;
+
+  await lecheEnt.collection("listaLeche").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+
+        if (contador == numLeche) {
+          contador++;
+          cadena = `Derivado de leche: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+        }
+        contador++;
+
+      });
+  });
+
+   return cadena;
+}
+
+async function getLeguminosa()
+{
+  var db = firebase.firestore();
+  var general = db.collection("ingredientes");
+  var leguminosas = general.doc("leguminosas");
+  var contador = 1;
+  const numLeg = getRandomInt(1,9);
+  var cadena;
+
+  await leguminosas.collection("listaLeguminosas").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+
+        if (contador == numLeg) {
+          contador++;
+          cadena = `Leguminosa: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+        }
+        contador++;
+
+      });
+  });
+
+   return cadena;
+}
+
+async function getVerduras()
+{
+  var db = firebase.firestore();
+  var general = db.collection("ingredientes");
+  var verdura = general.doc("verduras");
+  var contador = 1;
+  const numVerduras = getRandomInt(1,60);
+  var cadena;
+
+  await verdura.collection("listaVerduras").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+
+        if (contador == numVerduras) {
+          contador++;
+          cadena = `Verdura: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+        }
+        contador++;
+
+      });
+  });
+
+   return cadena;
+}
+
 async function mainDieta(){
     const peso = document.getElementById("peso").value;
     const altura = document.getElementById("altura").value;
     const edad = document.getElementById("edad").value;
+    const ejercicio = document.getElementById("ejercicio").value;
+    var multiplicadorEjercicio = 1.2;
+
+    /// niveles de ejercicio                            Kcla/dia para mantener el peso
+    ///
+    ///poco ejercicio -> menos de 1 vez a la semana -> BMR x 1.2
+    ///ejercicio ligero -> 1 a 3 días a la semana   -> BMR x 1.375
+    ///ejercicio moderado -> 3 a 5 días a la semana -> BMR x 1.55
+    ///ejercicio pesado -> 6 a 7 días a la semana   -> BMR x 1.725
+    ///ejercicio muy pesado -> 2 o más veces al día -> BMR x 1.9
+    ///
+    /// para bajar de peso, quitar 500 Kcal por cada 0.5Kg, por semana
+    ///
+    ///
+
+    if (ejercicio < 4  && ejercicio >= 1) {
+      multiplicadorEjercicio = 1.375
+      console.log(multiplicadorEjercicio);
+    }
+
+    if (ejercicio == 4 || ejercicio == 5) {
+      multiplicadorEjercicio = 1.55
+      console.log(multiplicadorEjercicio);
+    }
+
+    if (ejercicio > 5) {
+      multiplicadorEjercicio = 1.725
+      console.log(multiplicadorEjercicio);
+    }
 
     console.log(`peso = ${peso} altura = ${altura} edad = ${edad}`);
 
     const BMR = (88.4 + (13.4 * peso) + (4.8 * altura) - (5.7 * edad))
     const BMRFem = (447.6 + (9.2 * peso) + (3.1 * altura) - (4.3 * edad))
-    console.log(`BMR = ${BMR} `);
-    console.log(`BMR femenino = ${BMRFem} `);
+
+    const cantidadCalorias = BMR * multiplicadorEjercicio;
+    const cantidadCaloriasFem = BMRFem * multiplicadorEjercicio;
+
+    const caloriasBajarPeso = cantidadCalorias - 500;
+    const caloriasBajarPesoFem = cantidadCaloriasFem - 500;
+
+    console.log(`Tasa metabólica basal = ${BMR} `);
+    console.log(`Tasa metabólica basal femenina = ${BMRFem} `);
+
+    console.log(`Calorias para mantener el peso: ${cantidadCalorias}`);
+    console.log(`Calorias para mantener el peso Fem: ${cantidadCaloriasFem}`);
+
+    console.log(`Cantidad de calorias para bajar 500 gramos en una semana: ${caloriasBajarPeso}`);
+    console.log(`Cantidad de calorias para bajar 500 gramos en una semana fem: ${caloriasBajarPesoFem}`);
+
 
     var db = firebase.firestore();
-
-    // db.collection("ingredientes").get().then((querySnapshot) => {
-    //     querySnapshot.forEach((doc) => {
-    //         console.log(`${doc.id} => ${doc.data().energia}`);
-    //     });
-    // });
-
     var general = db.collection("ingredientes");
 
       ///***    tipos de ingredientes   ***///
@@ -252,6 +388,13 @@ async function mainDieta(){
     var leguminosas = general.doc("leguminosas");                 /// 9
     var verduras = general.doc("verduras");                       /// 60
 
+    // verduras.collection("listaVerduras").get().then((querySnapshot) => {
+    //     querySnapshot.forEach((doc) => {
+    //         console.log(`${doc.id} => ${doc.data().porcion}`);
+    //     });
+    // });
+
+/// muestra de get Ingredientes.
     var fruta1 = await getFruta();
     console.log(fruta1);
 
@@ -270,7 +413,20 @@ async function mainDieta(){
     var grasaMono1 = await getGrasaMono();
     console.log(grasaMono1);
 
+    var grasaPoli1 = await getGrasaPoli();
+    console.log(grasaPoli1);
 
+    var lecheD = await getLecheDescremada();
+    console.log(lecheD);
+
+    var lecheE = await getLecheEntera();
+    console.log(lecheE);
+
+    var legum = await getLeguminosa();
+    console.log(legum);
+
+    var veggie = await getVerduras();
+    console.log(veggie);
 
 
 
@@ -646,6 +802,9 @@ async function mainDieta(){
               <br>
               <br>
               <ons-input placeholder="Ingrese su edad en años" input-id="edad" modifier="underbar" style="background-color: white; color: black" float></ons-input>
+              <br>
+              <br>
+              <ons-input placeholder="Días de ejercicio semanales" input-id="ejercicio" modifier="underbar" style="background-color: white; color: black" float></ons-input>
               <br>
               <br>
               <ons-button id="push-button" onclick="mainDieta()" style="background-color: #FFA101; color: white" >obtener dieta</ons-button>
