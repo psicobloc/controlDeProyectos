@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <title>DietApp</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.min.css">
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyD_mwMSSpi0zPQMPp6Hblg_puejiQjyUK8",
+        authDomain: "metasalimenticias.firebaseapp.com",
+        databaseURL: "https://metasalimenticias.firebaseio.com",
+        projectId: "metasalimenticias",
+        storageBucket: "metasalimenticias.appspot.com",
+        messagingSenderId: "934058171716",
+        appId: "1:934058171716:web:fae77b934754b8db374b11"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+
+<script type="text/javascript">
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+async function getFruta()
+{
+  var db = firebase.firestore();
+  var general = db.collection("ingredientes");
+  var frutas = general.doc("frutas");
+  var contador = 1;
+  const numFruta = getRandomInt(1,52);
+  //console.log(numFruta);
+  var cadena;
+
+  await frutas.collection("listaFrutas").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+
+        if (contador == numFruta) {
+          contador++;
+          cadena = `fruta: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+        }
+        contador++;
+
+      });
+  });
+
+   return cadena;
+}
+
+async function getCerealNormal()
+{
+  var db = firebase.firestore();
+  var general = db.collection("ingredientes");
+  var cereales = general.doc("cereales");
+  var contador = 1;
+  const numCereal = getRandomInt(1,46);
+  var cadena;
+
+  await cereales.collection("listaCereales").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+
+        if (contador == numCereal) {
+          contador++;
+          cadena = `Cereal: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+        }
+        contador++;
+
+      });
+  });
+
+   return cadena;
+}
+
+async function getCerealGrasa()
+{
+  var db = firebase.firestore();
+  var general = db.collection("ingredientes");
+  var cereales = general.doc("cerealesGrasa");
+  var contador = 1;
+  const numCereal = getRandomInt(1,17);
+  var cadena;
+
+  await cereales.collection("listaCereales").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+
+        if (contador == numCereal) {
+          contador++;
+          cadena = `Cereal: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+        }
+        contador++;
+
+      });
+  });
+
+   return cadena;
+}
+
+async function getAnimalBajaGrasa()
+{
+  var db = firebase.firestore();
+  var general = db.collection("ingredientes");
+  var animalBajaGrasa = general.doc("animalBajaGrasa");
+  var contador = 1;
+  const numAnimal = getRandomInt(1,63);
+  var cadena;
+
+  await animalBajaGrasa.collection("listaAnimal").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+
+        if (contador == numAnimal) {
+          contador++;
+          cadena = `De origen animal: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+        }
+        contador++;
+
+      });
+  });
+
+   return cadena;
+}
+
+async function getAnimalMuyBajaGrasa()
+{
+  var db = firebase.firestore();
+  var general = db.collection("ingredientes");
+  var animalBajaGrasa = general.doc("animalMuyBajaGrasa");
+  var contador = 1;
+  const numAnimal = getRandomInt(1,53);
+  var cadena;
+
+  await animalBajaGrasa.collection("listaAnimal").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+
+        if (contador == numAnimal) {
+          contador++;
+          cadena = `De origen animal: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+        }
+        contador++;
+
+      });
+  });
+
+   return cadena;
+}
+
+async function getGrasaMono()
+{
+  var db = firebase.firestore();
+  var general = db.collection("ingredientes");
+  var grasaMonoinsaturada = general.doc("grasaMonoinsaturada");
+  var contador = 1;
+  const numGrasa = getRandomInt(1,12);
+  var cadena;
+
+  await grasaMonoinsaturada.collection("listaGrasa").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+
+        if (contador == numGrasa) {
+          contador++;
+          cadena = `Lípidos Monoinsaturados: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+        }
+        contador++;
+
+      });
+  });
+
+   return cadena;
+}
+
+async function getGrasaPoli()
+{
+  var db = firebase.firestore();
+  var general = db.collection("ingredientes");
+  var grasaPoli = general.doc("grasaPoliinsaturada");
+  var contador = 1;
+  const numGrasa = getRandomInt(1,9);
+  var cadena;
+
+  await grasaPoli.collection("listaGrasa").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+
+        if (contador == numGrasa) {
+          contador++;
+          cadena = `Lípidos Poliinsaturados: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+        }
+        contador++;
+
+      });
+  });
+
+   return cadena;
+}
+
+async function mainDieta(){
+    const peso = document.getElementById("peso").value;
+    const altura = document.getElementById("altura").value;
+    const edad = document.getElementById("edad").value;
+
+    console.log(`peso = ${peso} altura = ${altura} edad = ${edad}`);
+
+    const BMR = (88.4 + (13.4 * peso) + (4.8 * altura) - (5.7 * edad))
+    const BMRFem = (447.6 + (9.2 * peso) + (3.1 * altura) - (4.3 * edad))
+    console.log(`BMR = ${BMR} `);
+    console.log(`BMR femenino = ${BMRFem} `);
+
+    var db = firebase.firestore();
+
+    // db.collection("ingredientes").get().then((querySnapshot) => {
+    //     querySnapshot.forEach((doc) => {
+    //         console.log(`${doc.id} => ${doc.data().energia}`);
+    //     });
+    // });
+
+    var general = db.collection("ingredientes");
+
+      ///***    tipos de ingredientes   ***///
+    var animalBajaGrasa = general.doc("animalBajaGrasa");         /// 63 diferentes
+    var animalMuyBajaGrasa = general.doc("animalMuyBajaGrasa");   /// 53
+    var cereales = general.doc("cereales");                       /// 46
+    var cerealesGrasa = general.doc("cerealesGrasa");             /// 17
+    var frutas = general.doc("frutas");                           /// 52
+    var grasaMonoinsaturada = general.doc("grasaMonoinsaturada"); /// 12
+    var grasaPoliinsaturada = general.doc("grasaPoliinsaturada"); /// 9
+    var lecheDescremada = general.doc("lecheDescremada");         /// 6
+    var lecheEntera = general.doc("lecheEntera");                 /// 5
+    var leguminosas = general.doc("leguminosas");                 /// 9
+    var verduras = general.doc("verduras");                       /// 60
+
+    var fruta1 = await getFruta();
+    console.log(fruta1);
+
+    var cereal1 = await getCerealNormal();
+    console.log(cereal1);
+
+    var cerealG = await getCerealGrasa();
+    console.log(cerealG);
+
+    var animalBG = await getAnimalBajaGrasa();
+    console.log(animalBG);
+
+    var animalMBG = await getAnimalMuyBajaGrasa();
+    console.log(animalMBG);
+
+    var grasaMono1 = await getGrasaMono();
+    console.log(grasaMono1);
+
+
+
+
+
+
+
+    // frutas.collection("listaFrutas").get().then((querySnapshot) => {
+    //     querySnapshot.forEach((doc) => {
+    //
+    //       if (contador == numFruta) {
+    //         //console.log(`${doc.id} => ${doc.data().porcion}`);
+    //         const frutaEscogida1 = `${doc.id} => ${doc.data().porcion}`;
+    //         console.log(`fruta escogida = ${frutaEscogida}`);
+    //
+    //       }
+    //       contador++;
+    //
+    //     });
+    // });
+
+
+    /// calcular BMR
+    /// hombres -> 88.4 + (13.4 * peso en kg) + (4.8 * altura en cm.) - (5.7 x edad en años)
+    /// mujeres -> 447.6 + (9.2 * peso en kg) + (3.1 * altura en cm.) - (4.3 x edad en años)
+    ///
+
+
+/// niveles de ejercicio                            Kcla/dia para mantener el peso
+///
+///poco ejercicio -> menos de 1 vez a la semana -> BMR x 1.2
+///ejercicio ligero -> 1 a 3 días a la semana   -> BMR x 1.375
+///ejercicio moderado -> 3 a 5 días a la semana -> BMR x 1.55
+///ejercicio pesado -> 6 a 7 días a la semana   -> BMR x 1.725
+///ejercicio muy pesado -> 2 o más veces al día -> BMR x 1.9
+///
+/// para bajar de peso, quitar 500 Kcal por cada 0.5Kg, por semana
+///
+///
+
+/// **** 1000 kcal
+/// desayuno
+/// 1 fruta
+/// 1 cereal
+/// 1 verdura
+/// 1 animal
+/// 1 leche
+/// 1 grasa
+///
+/// colacion
+/// nada
+///
+/// comida
+///
+/// 2 cereales
+/// 2 verduras
+/// 1 fruta
+/// 1 animal
+/// 1 grasa
+/// 1 leche
+///
+/// colacion 2
+/// 1 leche
+///
+/// cena
+///
+/// 1 cereal
+/// 1 fruta
+/// 1 verdura
+/// 1 libre de energia **
+
+
+/// **** 1200 kcal
+/// desayuno
+/// 2 fruta
+/// 1 cereal
+/// 1 verdura
+/// 1 grasa
+///
+/// colacion
+/// 1 cereal
+/// 1 leche
+///
+/// comida
+///
+/// 2 cereales
+/// 2 verduras
+/// 1 fruta
+/// 2 animal
+/// 1 grasa
+/// 1 leche
+///
+/// colacion 2
+/// 1 leche
+/// 1 verdura
+///
+/// cena
+///
+/// 1 cereal
+/// 1 leche
+/// 1 verdura
+
+/// **** 1400 kcal
+/// desayuno
+/// 2 fruta
+/// 1 cereal
+/// 1 verdura
+/// 1 grasa
+/// 1 animal
+/// 1 leche
+///
+/// colacion
+/// 1 cereal
+/// 1 leche
+///
+/// comida
+///
+/// 2 cereales
+/// 2 verduras
+/// 2 animal
+/// 1 grasa
+/// 1 libre de energia
+///
+/// colacion 2
+/// 1 leche
+/// 1 cereal
+///
+/// cena
+///
+/// 1 cereal
+/// 1 leche
+/// 1 verdura
+/// 1 fruta
+/// 1 animal
+///
+/// **** 1600 Kcal
+/// desayuno
+/// 2 fruta
+/// 1 cereal
+/// 2 verdura
+/// 1 grasa
+/// 1 leche
+///
+/// colacion
+/// 1 verdura
+/// 1 animal
+///
+/// comida
+///
+/// 2 cereales
+/// 2 verduras
+/// 2 animal
+/// 1 fruta
+/// 1 grasa
+/// 1 leche
+///
+/// colacion 2
+/// 2 cereal
+///
+/// cena
+///
+/// 1 cereal
+/// 1 libre de energia
+/// 2 verdura
+/// 1 fruta
+/// 1 animal
+///
+/// **** 1800 kcal
+/// desayuno
+/// 2 fruta
+/// 3 cereal
+/// 1 verdura
+/// 1 grasa
+/// 1 leche
+/// 1 animal
+///
+/// colacion
+/// 1 cereal
+/// 1 animal
+///
+/// comida
+///
+/// 2 cereales
+/// 2 verduras
+/// 2 animal
+/// 1 fruta
+/// 1 grasa
+/// 1 leche
+///
+/// colacion 2
+/// 1 cereal
+/// 1 leche
+///
+/// cena
+///
+/// 1 cereal
+/// 1 libre de energia
+/// 2 verdura
+/// 1 fruta
+/// 1 animal
+///
+///
+/// **** 2000 Kcal
+/// desayuno
+/// 2 fruta
+/// 3 cereal
+/// 1 verdura
+/// 1 grasa
+/// 1 leche
+/// 2 animal
+///
+/// colacion
+/// 2 cereal
+/// 2 vegetal
+///
+/// comida
+///
+/// 3 cereales
+/// 2 verduras
+/// 2 animal
+/// 1 fruta
+/// 1 grasa
+/// 1 leche
+///
+/// colacion 2
+/// 2 cereal
+///
+/// cena
+///
+/// 1 cereal
+/// 1 leche
+/// 2 verdura
+/// 1 fruta
+/// 1 animal
+///
+
+///***    listas de ingredientes   ***///
+// var listaAnimalBaja = animalBajaGrasa.doc("listaAnimal"); ///error
+// var listaAnimalMuyBaja = animalMuyBajaGrasa.doc("listaAnimal");
+// var listaCereales = cereales.doc("listaCereales");
+// var listaCerealesGrasa = cerealesGrasa.doc("listaCereales");
+// var listaFrutas = frutas.doc("listaFrutas");
+// var listaGrasaMono = grasaMonoinsaturada.doc("listaGrasa");
+// var listaGrasaPoli = grasaPoliinsaturada.doc("listaGrasa");
+// var listaLecheDescremada = lecheDescremada.doc("listaLeche");
+// var listaLecheEntera = lecheEntera.doc("listaLeche");
+// var listaLeguminosas = leguminosas.doc("listaLeguminosas");
+// var listaVerduras = verduras.doc("listaVerduras");
+
+// frutas.collection("listaFrutas").get().then((querySnapshot) => {
+//     querySnapshot.forEach((doc) => {
+//         console.log(`${doc.id} => ${doc.data().porcion}`);
+//     });
+// });
+
+// var frutax = await getFruta();
+// //await getFruta().then(frutax);
+// console.log(`frutax = ${frutax}`);
+
+
+
+
+///********-------- ninguno tiene leguminosas, agregarles.
+/// codigo cel lú 2610
+
+  }
+
+  function revisa(){
+    firebase.auth().onAuthStateChanged(firebaseUser =>{
+        if (firebaseUser) {
+          console.log(firebaseUser);
+          ons.notification.alert("Usuario dentro");
+        }
+        else{
+          console.log('No esta dentro');
+        }
+      });
+  }
+
+  function logIn(){
+    const email = document.getElementById("correo").value;
+    const password = document.getElementById("pass").value;
+    if(email == "" || password == ""){
+      ons.notification.alert("Error : Falta de datos");
+    }
+    else{
+      const auth = firebase.auth();
+
+      const promise = auth.signInWithEmailAndPassword(email, password);
+      promise.catch( e => ons.notification.alert("Error : " + e.message));
+    }
+  }
+</script>
+
+<style type="text/css">
+  .login-dark {
+  height: 1000px;
+  background: #475d62 url(../../assets/img/star-sky.jpg);
+  background-size: cover;
+  position: relative;
+  }
+
+  .login-dark form {
+    max-width: 320px;
+    width: 90%;
+    background-color: #1e2833;
+    padding: 40px;
+    border-radius: 4px;
+    color: #fff;
+    box-shadow: 3px 3px 4px rgba(0,0,0,0.2);
+  }
+
+  .login-dark .illustration {
+    text-align: center;
+    padding: 15px 0 20px;
+    font-size: 100px;
+    color: #2980ef;
+  }
+
+  .login-dark form .form-control {
+    background: none;
+    border: none;
+    border-bottom: 1px solid #434a52;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    color: inherit;
+  }
+
+  .login-dark form .btn-primary {
+    background: #214a80;
+    border: none;
+    border-radius: 4px;
+    padding: 11px;
+    box-shadow: none;
+    margin-top: 26px;
+    text-shadow: none;
+    outline: none;
+  }
+
+  .login-dark form .btn-primary:hover, .login-dark form .btn-primary:active {
+    background: #214a80;
+    outline: none;
+  }
+
+  .login-dark form .forgot {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: #6f7a85;
+    opacity: 0.9;
+    text-decoration: none;
+  }
+
+  .login-dark form .forgot:hover, .login-dark form .forgot:active {
+    opacity: 1;
+    text-decoration: none;
+  }
+
+  .login-dark form .btn-primary:active {
+    transform: translateY(1px);
+  }
+</style>
+
+<body>
+  <center>
+    <div class="login-dark" style="background-image: url(&quot;assets/img/foodBackground.jpg&quot;);">
+        <form method="post" style="height: 550px;">
+            <h2 class="sr-only">Login Form</h2>
+            <div class="illustration"><img src="assets/img/logo.png"></div>
+              <ons-input placeholder="Ingrese su peso" input-id="peso" modifier="underbar"  style="background-color: white; color: black" float></ons-input>
+              <br>
+              <br>
+              <ons-input placeholder="Ingrese su altura en cm" input-id="altura" modifier="underbar"  style="background-color: white; color: black" float></ons-input>
+              <br>
+              <br>
+              <ons-input placeholder="Ingrese su edad en años" input-id="edad" modifier="underbar" style="background-color: white; color: black" float></ons-input>
+              <br>
+              <br>
+              <ons-button id="push-button" onclick="mainDieta()" style="background-color: #FFA101; color: white" >obtener dieta</ons-button>
+              <br>
+              <br>
+              <ons-button id="push-button-F" onclick="logIn()" style="background-color: #FFA101; color: white" >Iniciar Seción</ons-button>
+          </form>
+      </div>
+    </center>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
