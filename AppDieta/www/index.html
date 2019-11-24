@@ -32,7 +32,10 @@
     </script>
 </head>
 
+
+
 <script type="text/javascript">
+	var recetaDieta;
   function signUp(){
     const email = document.getElementById("correo").value;
     const password = document.getElementById("pass").value;
@@ -70,12 +73,634 @@
       ons.notification.alert("Error : Falta de datos");
     }
     else{
-      const auth = firebase.auth();
+      // const auth = firebase.auth();
 
-      const promise = auth.signInWithEmailAndPassword(email, password);
-      promise.catch( e => ons.notification.alert("Error : " + e.message));
-    }
+      // const promise = auth.signInWithEmailAndPassword(email, password);
+      // promise.catch( e => ons.notification.alert("Error : " + e.message));
+    	  firebase.auth().signInWithEmailAndPassword(email, password)
+		    .catch(function(error) {
+		  // Handle Errors here.
+		  var errorCode = error.code;
+		  var errorMessage = error.message;
+		  if (errorCode === 'auth/wrong-password') {
+		    ons.notification.alert('Contraseña incorrecta');
+		  } else if(errorCode === 'auth/user-not-found'){
+		    ons.notification.alert('Usuario no encontrado');
+		  }else if(errorCode === 'auth/user-disabled'){
+		    ons.notification.alert('Usuario desactivado');
+		  }else if(errorCode === 'auth/invalid-email'){
+		    ons.notification.alert('Correo invalido');
+		  }
+			console.log(error); 
+		});
+			aObtener(); 
+  	}
   }
+
+  function aObtener(){
+  	var myNavigator = document.getElementById('myNavigador');
+                  myNavigator
+                  .pushPage("obten.html")
+                  
+                  .then(function() {
+                    document.getElementById("UsuarioName").innerHTML =  "Bienvenido";
+                   });
+  }
+  function muestra(){
+  	var a = document.getElementById("peso").value;
+  	var b = document.getElementById("altura").value;
+  	var c = document.getElementById("edad").value;
+  	var d = document.getElementById("ejercicio").value;
+  	if(a == "" || b == "" || c == "" || d == ""){
+  		ons.notification.alert("Error : Faltan datos");
+  	}
+  	else{
+	  	var myNavigator = document.getElementById('myNavigador');
+	                  myNavigator
+	                  .pushPage("dietaMuestra.html")
+	                  
+	                  .then(function() {
+	                    document.getElementById("UsuarioName2").innerHTML =  "DietApp";
+	                    mainDieta();
+	                    document.getElementById("receta").innerHTML =  recetaDieta;
+	                   });
+	  }
+	}
+</script>
+
+<!-- Codigo para conectar a base y sacar datos -->
+<script type="text/javascript">
+
+	function getRandomInt(min, max) {
+	    min = Math.ceil(min);
+	    max = Math.floor(max);
+	    return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+	async function getFruta()
+	{
+	  var db = firebase.firestore();
+	  var general = db.collection("ingredientes");
+	  var frutas = general.doc("frutas");
+	  var contador = 1;
+	  const numFruta = getRandomInt(1,52);
+	  //console.log(numFruta);
+	  var cadena;
+
+	  await frutas.collection("listaFrutas").get().then((querySnapshot) => {
+	      querySnapshot.forEach((doc) => {
+
+	        if (contador == numFruta) {
+	          contador++;
+	          cadena = `fruta: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+	        }
+	        contador++;
+
+	      });
+	  });
+
+	   return cadena;
+	}
+
+	async function getCerealNormal()
+	{
+	  var db = firebase.firestore();
+	  var general = db.collection("ingredientes");
+	  var cereales = general.doc("cereales");
+	  var contador = 1;
+	  const numCereal = getRandomInt(1,46);
+	  var cadena;
+
+	  await cereales.collection("listaCereales").get().then((querySnapshot) => {
+	      querySnapshot.forEach((doc) => {
+
+	        if (contador == numCereal) {
+	          contador++;
+	          cadena = `Cereal: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+	        }
+	        contador++;
+
+	      });
+	  });
+
+	   return cadena;
+	}
+
+	async function getCerealGrasa()
+	{
+	  var db = firebase.firestore();
+	  var general = db.collection("ingredientes");
+	  var cereales = general.doc("cerealesGrasa");
+	  var contador = 1;
+	  const numCereal = getRandomInt(1,17);
+	  var cadena;
+
+	  await cereales.collection("listaCereales").get().then((querySnapshot) => {
+	      querySnapshot.forEach((doc) => {
+
+	        if (contador == numCereal) {
+	          contador++;
+	          cadena = `Cereal: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+	        }
+	        contador++;
+
+	      });
+	  });
+
+	   return cadena;
+	}
+
+	async function getAnimalBajaGrasa()
+	{
+	  var db = firebase.firestore();
+	  var general = db.collection("ingredientes");
+	  var animalBajaGrasa = general.doc("animalBajaGrasa");
+	  var contador = 1;
+	  const numAnimal = getRandomInt(1,63);
+	  var cadena;
+
+	  await animalBajaGrasa.collection("listaAnimal").get().then((querySnapshot) => {
+	      querySnapshot.forEach((doc) => {
+
+	        if (contador == numAnimal) {
+	          contador++;
+	          cadena = `De origen animal: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+	        }
+	        contador++;
+
+	      });
+	  });
+
+	   return cadena;
+	}
+
+	async function getAnimalMuyBajaGrasa()
+	{
+	  var db = firebase.firestore();
+	  var general = db.collection("ingredientes");
+	  var animalBajaGrasa = general.doc("animalMuyBajaGrasa");
+	  var contador = 1;
+	  const numAnimal = getRandomInt(1,53);
+	  var cadena;
+
+	  await animalBajaGrasa.collection("listaAnimal").get().then((querySnapshot) => {
+	      querySnapshot.forEach((doc) => {
+
+	        if (contador == numAnimal) {
+	          contador++;
+	          cadena = `De origen animal: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+	        }
+	        contador++;
+
+	      });
+	  });
+
+	   return cadena;
+	}
+
+	async function getGrasaMono()
+	{
+	  var db = firebase.firestore();
+	  var general = db.collection("ingredientes");
+	  var grasaMonoinsaturada = general.doc("grasaMonoinsaturada");
+	  var contador = 1;
+	  const numGrasa = getRandomInt(1,12);
+	  var cadena;
+
+	  await grasaMonoinsaturada.collection("listaGrasa").get().then((querySnapshot) => {
+	      querySnapshot.forEach((doc) => {
+
+	        if (contador == numGrasa) {
+	          contador++;
+	          cadena = `Lípidos Monoinsaturados: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+	        }
+	        contador++;
+
+	      });
+	  });
+
+	   return cadena;
+	}
+
+	async function getGrasaPoli()
+	{
+	  var db = firebase.firestore();
+	  var general = db.collection("ingredientes");
+	  var grasaPoli = general.doc("grasaPoliinsaturada");
+	  var contador = 1;
+	  const numGrasa = getRandomInt(1,9);
+	  var cadena;
+
+	  await grasaPoli.collection("listaGrasa").get().then((querySnapshot) => {
+	      querySnapshot.forEach((doc) => {
+
+	        if (contador == numGrasa) {
+	          contador++;
+	          cadena = `Lípidos Poliinsaturados: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+	        }
+	        contador++;
+
+	      });
+	  });
+
+	   return cadena;
+	}
+
+	async function getLecheDescremada()
+	{
+	  var db = firebase.firestore();
+	  var general = db.collection("ingredientes");
+	  var lecheDesc = general.doc("lecheDescremada");
+	  var contador = 1;
+	  const numLeche = getRandomInt(1,6);
+	  var cadena;
+
+	  await lecheDesc.collection("listaLeche").get().then((querySnapshot) => {
+	      querySnapshot.forEach((doc) => {
+
+	        if (contador == numLeche) {
+	          contador++;
+	          cadena = `Derivado de leche: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+	        }
+	        contador++;
+
+	      });
+	  });
+
+	   return cadena;
+	}
+
+	async function getLecheEntera()
+	{
+	  var db = firebase.firestore();
+	  var general = db.collection("ingredientes");
+	  var lecheEnt = general.doc("lecheEntera");
+	  var contador = 1;
+	  const numLeche = getRandomInt(1,5);
+	  var cadena;
+
+	  await lecheEnt.collection("listaLeche").get().then((querySnapshot) => {
+	      querySnapshot.forEach((doc) => {
+
+	        if (contador == numLeche) {
+	          contador++;
+	          cadena = `Derivado de leche: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+	        }
+	        contador++;
+
+	      });
+	  });
+
+	   return cadena;
+	}
+
+	async function getLeguminosa()
+	{
+	  var db = firebase.firestore();
+	  var general = db.collection("ingredientes");
+	  var leguminosas = general.doc("leguminosas");
+	  var contador = 1;
+	  const numLeg = getRandomInt(1,9);
+	  var cadena;
+
+	  await leguminosas.collection("listaLeguminosas").get().then((querySnapshot) => {
+	      querySnapshot.forEach((doc) => {
+
+	        if (contador == numLeg) {
+	          contador++;
+	          cadena = `Leguminosa: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+	        }
+	        contador++;
+
+	      });
+	  });
+
+	   return cadena;
+	}
+
+	async function getVerduras()
+	{
+	  var db = firebase.firestore();
+	  var general = db.collection("ingredientes");
+	  var verdura = general.doc("verduras");
+	  var contador = 1;
+	  const numVerduras = getRandomInt(1,60);
+	  var cadena;
+
+	  await verdura.collection("listaVerduras").get().then((querySnapshot) => {
+	      querySnapshot.forEach((doc) => {
+
+	        if (contador == numVerduras) {
+	          contador++;
+	          cadena = `Verdura: ${doc.id}\t Porción: ${doc.data().porcion}`;
+
+	        }
+	        contador++;
+
+	      });
+	  });
+
+	   return cadena;
+	}
+
+
+	async function getDay(calorias) {
+
+	var cadena = "\n\nDesayuno:\n";
+	var caloriasTotales = 0;
+
+	//para todos.
+	var fruta1 = await getFruta();
+	caloriasTotales += 60;
+	cadena += fruta1;
+	cadena += "\n";
+
+	var veggie1 = await getVerduras();
+	caloriasTotales += 25;
+	cadena += veggie1;
+	cadena += "\n";
+	var cereal1 = await getCerealNormal();
+	caloriasTotales += 70;
+	cadena += cereal1;
+	cadena += "\n";
+	var grasa1 = await getGrasaMono();
+	caloriasTotales += 70;
+	cadena += grasa1;
+	cadena += "\n";
+
+	if (calorias > 1200) {
+	  var cereal2 = await getCerealNormal();
+	  caloriasTotales += 70;
+	  cadena += cereal2;
+	  cadena += "\n";
+
+	  if (calorias > 1400) {
+	    var animal1 = await getAnimalMuyBajaGrasa();
+	    caloriasTotales += 40;
+	    cadena += animal1;
+	    cadena += "\n";
+
+	    if (calorias > 1600) {
+	      var veggie2 = await getVerduras();
+	      caloriasTotales += 25;
+	      cadena += veggie2;
+	      cadena += "\n";
+
+	      if (calorias > 1800) {
+	        var fruta2 =  await getFruta();
+	        caloriasTotales += 60;
+	        cadena += fruta2;
+	        cadena += "\n";
+
+	        if (calorias > 2000) {
+	          var animal2 = await getAnimalMuyBajaGrasa();
+	          caloriasTotales += 40;
+	          cadena += animal2;
+	          cadena += "\n";
+
+	        }
+	      }
+	    }
+	  }
+	}
+
+	cadena += "\n\nColación de medio día\n";
+
+	if (calorias > 1200) {
+	  var cerealCol1 = await getCerealNormal();
+	  caloriasTotales += 70;
+	  cadena += cerealCol1;
+	  cadena += "\n";
+
+	  if (calorias < 1600) {
+	    var lecheCol1 = await getLecheDescremada();
+	    caloriasTotales += 95;
+	  }
+
+	  if (calorias > 1400) {
+	    var animalCol1 = await getAnimalMuyBajaGrasa();
+	    caloriasTotales += 40;
+	    cadena += animalCol1;
+	    cadena += "\n";
+
+	      if (calorias > 1800) {
+	        var frutaCol2 = await getFruta();
+	        caloriasTotales += 60;
+	        cadena += frutaCol2;
+	        cadena += "\n";
+
+	        if (calorias > 2000) {
+	          var veggieCol1 = await getVerduras();
+	          caloriasTotales += 25;
+	          cadena += veggieCol1;
+	          cadena += "\n";
+
+	          var veggieCol2 = await getVerduras();
+	          caloriasTotales += 25;
+	          cadena += veggieCol2;
+	          cadena += "\n";
+
+	        }
+	      }
+	  }
+	}
+
+	cadena += "\n\nComida\n"
+	//todos
+	  var cerealComida1 = await getCerealNormal();
+	  caloriasTotales += 70;
+	  cadena += cerealComida1;
+	  cadena += "\n";
+
+	  var leguminosa1 = await getLeguminosa();
+	  caloriasTotales += 120;
+	  cadena += leguminosa1;
+	  cadena += "\n"
+
+	  var veggieComida1 = await getVerduras();
+	  caloriasTotales += 25;
+	  cadena += veggieComida1;
+	  cadena += "\n";
+
+	  var veggieComida2 = await getVerduras();
+	  caloriasTotales += 25;
+	  cadena += veggieComida2;
+	  cadena += "\n";
+
+	  var frutaComida1 = await getFruta();
+	  caloriasTotales += 60;
+	  cadena += frutaComida1;
+	  cadena += "\n";
+
+	  var animalComida1 = await getAnimalMuyBajaGrasa();
+	  caloriasTotales += 40;
+	  cadena += animalComida1;
+	  cadena += "\n";
+
+	  var grasaComida1 = await getGrasaPoli();
+	  caloriasTotales += 45;
+	  cadena += grasaComida1;
+	  cadena += "\n";
+
+	  var lecheComida1 = await getLecheDescremada();
+	  caloriasTotales += 95;
+	  cadena += lecheComida1;
+	  cadena += "\n";
+
+	if (calorias > 1200) {
+	    var animalComida2 = await getAnimalMuyBajaGrasa();
+	    caloriasTotales += 40;
+	    cadena += animalComida2;
+	    cadena += "\n";
+
+	      if (calorias > 1800) {
+	        var cerealComida3 = await getCerealGrasa();
+	        caloriasTotales += 115;
+	        cadena += cerealComida3;
+	        cadena += "\n";
+	      }
+	}
+
+	cadena += "\n\nColación de media tarde\n";
+	//todos
+
+	var lecheTarde1 = await getLecheDescremada();
+	caloriasTotales += 95;
+	cadena += lecheTarde1;
+	cadena += "\n";
+
+	if (calorias < 1400) {
+	  if (calorias > 1200) {
+
+	    var veggieTarde = await getVerduras();
+	    caloriasTotales += 25;
+	    cadena += veggieTarde;
+	    cadena += "\n";
+	  }
+	}
+
+	if (calorias > 1400) {
+
+	  var cerealTarde1 = await getCerealNormal();
+	  caloriasTotales += 70;
+	  cadena += cerealTarde1;
+	  cadena += "\n";
+	}
+
+	cadena += "\n\nCena\n"
+	//todos
+	var cerealCena1 = await getCerealNormal();
+	caloriasTotales += 70;
+	cadena += cerealCena1;
+	cadena += "\n";
+
+	var veggieCena1 = await getVerduras();
+	caloriasTotales += 25;
+	cadena += veggieCena1;
+	cadena += "\n";
+
+	var frutaCena1 =  await getFruta();
+	caloriasTotales += 60;
+	cadena += frutaCena1;
+	cadena += "\n";
+
+	if (calorias > 1200) {
+
+	  var lecheCena1 = await getLecheDescremada();
+	  caloriasTotales += 95;
+	  cadena += lecheCena1;
+	  cadena += "\n";
+	  if (calorias > 1400) {
+
+	    var animalCena1 = await getAnimalBajaGrasa();
+	    caloriasTotales += 55;
+	    cadena += animalCena1;
+	    cadena += "\n";
+	  }
+	}
+
+
+	var diferencia = (calorias - caloriasTotales);
+
+
+	if (diferencia > 0) {
+	  cadena += "\nAgregar durante cualquier parte del día:\n\n";
+
+	  while (diferencia > 115) {
+	    var leguminosa2 = await getLeguminosa();
+	    caloriasTotales += 120;
+	    cadena += leguminosa2;
+	    cadena += "\n"
+
+	    diferencia = (calorias - caloriasTotales);
+	  }
+	  //console.log(`nueva diferencia: ${diferencia}`);
+	}
+
+	console.log("\n\ndieta:");
+	console.log(cadena);
+	}
+
+	async function mainDieta(){
+	    const peso = document.getElementById("peso").value;
+	    const altura = document.getElementById("altura").value;
+	    const edad = document.getElementById("edad").value;
+	    const ejercicio = document.getElementById("ejercicio").value;
+	    var multiplicadorEjercicio = 1.2;
+
+	    if (ejercicio < 4  && ejercicio >= 1) {
+	      multiplicadorEjercicio = 1.375
+	      console.log(multiplicadorEjercicio);
+	    }
+
+	    if (ejercicio == 4 || ejercicio == 5) {
+	      multiplicadorEjercicio = 1.55
+	      console.log(multiplicadorEjercicio);
+	    }
+
+	    if (ejercicio > 5) {
+	      multiplicadorEjercicio = 1.725
+	      console.log(multiplicadorEjercicio);
+	    }
+
+	    console.log(`peso = ${peso} altura = ${altura} edad = ${edad}`);
+
+	    const BMR = (88.4 + (13.4 * peso) + (4.8 * altura) - (5.7 * edad))
+	    const BMRFem = (447.6 + (9.2 * peso) + (3.1 * altura) - (4.3 * edad))
+
+	    const cantidadCalorias = BMR * multiplicadorEjercicio;
+	    const cantidadCaloriasFem = BMRFem * multiplicadorEjercicio;
+
+	    const caloriasBajarPeso = cantidadCalorias - 500;
+	    const caloriasBajarPesoFem = cantidadCaloriasFem - 500;
+
+	 
+
+	    console.log(`Tasa metabólica basal = ${BMR} `);
+	    console.log(`Tasa metabólica basal femenina = ${BMRFem} `);
+
+	    console.log(`Calorias para mantener el peso: ${cantidadCalorias}`);
+	    console.log(`Calorias para mantener el peso Fem: ${cantidadCaloriasFem}`);
+
+	    console.log(`Cantidad de calorias para bajar 500 gramos en una semana: ${caloriasBajarPeso}`);
+	    console.log(`Cantidad de calorias para bajar 500 gramos en una semana fem: ${caloriasBajarPesoFem}`);
+
+	     console.log("\n\n\n Dieta para bajar de peso:\n\n");
+
+	     var semanaChida = await getDay(caloriasBajarPeso);
+
+	     recetaDieta = `Tasa metabólica basal = ${BMR} `+ `<br>Calorias para mantener el peso: ${cantidadCalorias}` + `<br>Cantidad de calorias para bajar 500 gramos en una semana: ${caloriasBajarPeso}` + "<br>\n\n\n Dieta para bajar de peso:\n\n" + "<br>" +semanaChida;
+	  }
 </script>
 
 <style type="text/css">
@@ -146,9 +771,20 @@
   .login-dark form .btn-primary:active {
     transform: translateY(1px);
   }
+
+  #obten .page__background{
+  	background-color: #1e2833;
+  }
+  /*#dietaMuestra .page__background{
+  	background-color: #1e2833;
+  }*/
 </style>
 
 <body>
+
+	<ons-navigator swipeable id="myNavigador" page="pagina1.html"></ons-navigator>
+	<template id="pagina1.html">
+	    	<ons-page id="pagina1">
   <center>
     <div class="login-dark" style="background-image: url(&quot;assets/img/foodBackground.jpg&quot;);">
         <form method="post" style="height: 550px;">
@@ -164,7 +800,58 @@
               <br>
               <br>
               <ons-button id="push-button-F" onclick="logIn()" style="background-color: #FFA101; color: white" >Iniciar Seción</ons-button>
-          </form>    
+          </form>
+</ons-page>
+		</template>
+
+          <template id="obten.html">
+			<ons-page id="obten" style="background-color: #CDB380">
+	        	<ons-toolbar style="background-color: #CDB380" >
+	     			<div class="left"><ons-back-button style="color: #033649">Salir</ons-back-button></div>
+	     			<div class="center" id="UsuarioName" style="color: #033649"></div>
+		        </ons-toolbar>
+		        	
+		              <center>
+		              	<br>
+		              	<br>
+		              	<br>
+		              	<br>
+		              	<ons-input placeholder="Ingrese su peso" input-id="peso" modifier="underbar"  style="background-color: white; color: black" float></ons-input>
+		              	<br>
+		              	<br>
+			            <ons-input placeholder="Ingrese su altura en cm" input-id="altura" modifier="underbar"  style="background-color: white; color: black" float></ons-input>
+			            <br>
+			            <br>
+			            <ons-input placeholder="Ingrese su edad en años" input-id="edad" modifier="underbar" style="background-color: white; color: black" float></ons-input>
+			            <br>
+			            <br>
+			            <ons-input placeholder="Días de ejercicio semanales" input-id="ejercicio" modifier="underbar" style="background-color: white; color: black" float></ons-input>
+			            <br>
+			            <br>
+			            <ons-button id="push-button" onclick="muestra()" style="background-color: #FFA101; color: white" >Obtener dieta</ons-button>
+			            <br>
+			            <br>
+		              </center>
+  			</ons-page>
+		</template>
+		<template id="dietaMuestra.html">
+			<ons-page id="dietaMuestra" style="background-color: #CDB380">
+	        	<ons-toolbar style="background-color: #CDB380" >
+	     			<div class="left"><ons-back-button style="color: #033649">Regresar</ons-back-button></div>
+	     			<div class="center" id="UsuarioName2" style="color: #033649"></div>
+		        </ons-toolbar>
+		        	
+		              <center>
+		              	<br>
+		              	<br>
+		              	<br>
+		              	<br>
+		              	
+		              	<label id="receta"></label>
+		              	
+		              </center>
+  			</ons-page>
+		</template>        
       </div>
     </center>
     <script type="text/javascript" src="cordova.js"></script>
